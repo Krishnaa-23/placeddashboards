@@ -566,13 +566,13 @@ export default function TPODashboard() {
 
             <button
               onClick={() => setActiveTab('reports')}
-              className={`w-full p-3 rounded-xl text-xs font-bold flex items-center gap-3 transition-all duration-250 ease-in-out ${
+              className={`w-full p-2.5 rounded-xl text-sm font-semibold flex items-center gap-3 transition-all ${
                 activeTab === 'reports'
-                  ? 'bg-gradient-to-r from-[#00A79D] to-[#00D2C4] text-[#052742] font-black shadow-[0_4px_20px_rgba(0,167,157,0.5)] border-l-4 border-white'
-                  : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  ? 'bg-slate-800/80 text-white font-bold shadow-xs'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 font-medium'
               } ${isSidebarCollapsed ? 'justify-center' : ''}`}
             >
-              <FileText className={`w-5 h-5 shrink-0 ${activeTab === 'reports' ? 'text-[#052742]' : 'text-slate-400'}`} />
+              <FileText className={`w-5 h-5 shrink-0 ${activeTab === 'reports' ? 'text-slate-300' : 'text-slate-500'}`} />
               {!isSidebarCollapsed && <span className="truncate">Reports Audit</span>}
             </button>
           </div>
@@ -590,16 +590,6 @@ export default function TPODashboard() {
             <Lock className="w-4 h-4 text-rose-400 shrink-0" />
             {!isSidebarCollapsed && <span className="truncate text-[11px]">Log Out Admin</span>}
           </button>
-
-          <Link
-            href="/"
-            className={`w-full p-2.5 rounded-lg text-xs font-bold flex items-center gap-3 transition-all duration-250 ease-in-out bg-slate-900 hover:bg-slate-800 text-[#00A79D] border border-slate-800 overflow-hidden ${
-              isSidebarCollapsed ? 'justify-center' : ''
-            }`}
-          >
-            <ArrowLeft className="w-4 h-4 shrink-0" />
-            {!isSidebarCollapsed && <span className="truncate text-[11px]">Main Site</span>}
-          </Link>
         </div>
       </aside>
 
@@ -659,10 +649,6 @@ export default function TPODashboard() {
                   </button>
                 </nav>
               </div>
-
-              <Link href="/" className="w-full p-3 rounded-lg bg-slate-900 text-[#00A79D] font-bold text-xs text-center block">
-                ← Return to Main Site
-              </Link>
             </motion.div>
           </motion.div>
         )}

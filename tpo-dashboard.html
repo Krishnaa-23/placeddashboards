@@ -486,23 +486,23 @@
               {/* TPO MODULE NAVIGATION BUTTONS */}
               <div className="p-4 space-y-2 mt-2">
                 <span className="text-[10px] font-black uppercase tracking-wider text-[#00A79D] block mb-2 px-1">TPO MODULES</span>
-                <button onClick={() => { setActiveTab('command'); setIsSidebarOpen(false); }} className={`w-full p-3 rounded-xl text-xs font-bold flex items-center gap-3 transition-all ${activeTab === 'command' ? 'bg-gradient-to-r from-[#00A79D] to-[#00D2C4] text-[#052742] font-black shadow-lg border-l-4 border-white' : 'text-slate-300 hover:bg-slate-800'}`}>
+                <button onClick={() => { setActiveTab('command'); setIsSidebarOpen(false); }} className={`w-full p-2.5 rounded-xl text-sm font-semibold flex items-center gap-3 transition-all ${activeTab === 'command' ? 'bg-slate-800/80 text-white font-bold shadow-xs' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 font-medium'}`}>
                   <Icons.Dashboard />
                   <span className="truncate">Campus Command</span>
                 </button>
-                <button onClick={() => { setActiveTab('whitelist'); setIsSidebarOpen(false); }} className={`w-full p-3 rounded-xl text-xs font-bold flex items-center gap-3 transition-all ${activeTab === 'whitelist' ? 'bg-gradient-to-r from-[#00A79D] to-[#00D2C4] text-[#052742] font-black shadow-lg border-l-4 border-white' : 'text-slate-300 hover:bg-slate-800'}`}>
+                <button onClick={() => { setActiveTab('whitelist'); setIsSidebarOpen(false); }} className={`w-full p-2.5 rounded-xl text-sm font-semibold flex items-center gap-3 transition-all ${activeTab === 'whitelist' ? 'bg-slate-800/80 text-white font-bold shadow-xs' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 font-medium'}`}>
                   <Icons.ShieldCheck />
                   <span className="truncate">Whitelist Gate</span>
                 </button>
-                <button onClick={() => { setActiveTab('drives'); setIsSidebarOpen(false); }} className={`w-full p-3 rounded-xl text-xs font-bold flex items-center gap-3 transition-all ${activeTab === 'drives' ? 'bg-gradient-to-r from-[#00A79D] to-[#00D2C4] text-[#052742] font-black shadow-lg border-l-4 border-white' : 'text-slate-300 hover:bg-slate-800'}`}>
+                <button onClick={() => { setActiveTab('drives'); setIsSidebarOpen(false); }} className={`w-full p-2.5 rounded-xl text-sm font-semibold flex items-center gap-3 transition-all ${activeTab === 'drives' ? 'bg-slate-800/80 text-white font-bold shadow-xs' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 font-medium'}`}>
                   <Icons.GraduationCap />
                   <span className="truncate">Hiring Drives</span>
                 </button>
-                <button onClick={() => { setActiveTab('lowperformers'); setIsSidebarOpen(false); }} className={`w-full p-3 rounded-xl text-xs font-bold flex items-center gap-3 transition-all ${activeTab === 'lowperformers' ? 'bg-gradient-to-r from-[#00A79D] to-[#00D2C4] text-[#052742] font-black shadow-lg border-l-4 border-white' : 'text-slate-300 hover:bg-slate-800'}`}>
+                <button onClick={() => { setActiveTab('lowperformers'); setIsSidebarOpen(false); }} className={`w-full p-2.5 rounded-xl text-sm font-semibold flex items-center gap-3 transition-all ${activeTab === 'lowperformers' ? 'bg-slate-800/80 text-white font-bold shadow-xs' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 font-medium'}`}>
                   <Icons.AlertTriangle />
                   <span className="truncate">Risk Warning</span>
                 </button>
-                <button onClick={() => { setActiveTab('reports'); setIsSidebarOpen(false); }} className={`w-full p-3 rounded-xl text-xs font-bold flex items-center gap-3 transition-all ${activeTab === 'reports' ? 'bg-gradient-to-r from-[#00A79D] to-[#00D2C4] text-[#052742] font-black shadow-lg border-l-4 border-white' : 'text-slate-300 hover:bg-slate-800'}`}>
+                <button onClick={() => { setActiveTab('reports'); setIsSidebarOpen(false); }} className={`w-full p-2.5 rounded-xl text-sm font-semibold flex items-center gap-3 transition-all ${activeTab === 'reports' ? 'bg-slate-800/80 text-white font-bold shadow-xs' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5 font-medium'}`}>
                   <Icons.FileText />
                   <span className="truncate">Reports Audit</span>
                 </button>
