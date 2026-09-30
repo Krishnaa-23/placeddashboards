@@ -522,9 +522,12 @@
             
             {/* WATERMARK: PERFECTLY CENTERED ACROSS MAIN CONTENT AREA (ALWAYS HIGHLY VISIBLE) */}
             <div className="pointer-events-none fixed inset-0 flex items-center justify-center z-0 select-none overflow-hidden">
-              <span className="text-[120px] sm:text-[180px] md:text-[220px] lg:text-[260px] font-black text-slate-300/50 tracking-wider uppercase font-sans">
-                PLACED
-              </span>
+              <img
+                src="./public/placed-official-logo.jpg"
+                alt="PLACED Logo Watermark"
+                className="w-[560px] max-w-[75vw] h-[560px] max-h-[75vh] object-contain opacity-[0.045] mix-blend-multiply pointer-events-none select-none transition-opacity duration-300"
+                onError={(e) => { e.currentTarget.src = './placed-official-logo.jpg'; }}
+              />
             </div>
 
             {/* TOP HEADER */}
@@ -602,9 +605,12 @@
 
             {/* ELEGANT VISIBLE BACKGROUND WATERMARK */}
             <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden select-none">
-              <span className="text-[22vw] font-black text-[#052742]/[0.05] tracking-tighter uppercase blur-[0.5px]">
-                PLACED
-              </span>
+              <img
+                src="./public/placed-official-logo.jpg"
+                alt="PLACED Logo Watermark"
+                className="w-[560px] max-w-[75vw] h-[560px] max-h-[75vh] object-contain opacity-[0.045] mix-blend-multiply pointer-events-none select-none transition-opacity duration-300"
+                onError={(e) => { e.currentTarget.src = './placed-official-logo.jpg'; }}
+              />
             </div>
 
             {/* MAIN CONTENT BODY CONTAINER (EXPANDED FLUID LAYOUT FILLING SCREEN PERFECTLY) */}

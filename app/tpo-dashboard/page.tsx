@@ -733,9 +733,12 @@ export default function TPODashboard() {
         <div className={`fixed top-0 bottom-0 right-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden select-none transition-all duration-300 ease-in-out ${
           isSidebarCollapsed ? 'left-0 md:left-20' : 'left-0 md:left-64'
         }`}>
-          <span className="text-[16vw] font-black text-[#E2E8F0]/75 tracking-widest uppercase font-sans pointer-events-none select-none">
-            PLACED
-          </span>
+          <img
+            src="/placed-official-logo.jpg"
+            alt="PLACED Logo Watermark"
+            className="w-[560px] max-w-[75vw] h-[560px] max-h-[75vh] object-contain opacity-[0.045] mix-blend-multiply pointer-events-none select-none transition-opacity duration-300"
+          />
+
         </div>
 
         {/* MAIN CONTENT BODY */}
@@ -773,7 +776,7 @@ export default function TPODashboard() {
                       className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/20 hover:bg-white/30 backdrop-blur-md border border-white/25 text-white font-bold text-xs shadow-md flex items-center justify-center gap-2 transition-all hover:-translate-y-0.5 active:scale-95"
                     >
                       <Plus className="w-4 h-4 text-white shrink-0" />
-                      <span>+ Launch Corporate Drive</span>
+                      <span>Launch Corporate Drive</span>
                     </button>
 
                     <button

@@ -513,9 +513,12 @@
 
             {/* WATERMARK: PERFECTLY CENTERED ACROSS MAIN CONTENT AREA */}
             <div className="pointer-events-none fixed inset-0 flex items-center justify-center z-0 select-none overflow-hidden">
-              <span className="text-[120px] sm:text-[180px] md:text-[220px] lg:text-[260px] font-black text-[#052742]/[0.028] tracking-[0.25em] uppercase font-sans">
-                PLACED
-              </span>
+              <img
+                src="./public/placed-official-logo.jpg"
+                alt="PLACED Logo Watermark"
+                className="w-[560px] max-w-[75vw] h-[560px] max-h-[75vh] object-contain opacity-[0.045] mix-blend-multiply pointer-events-none select-none transition-opacity duration-300"
+                onError={(e) => { e.currentTarget.src = './placed-official-logo.jpg'; }}
+              />
             </div>
 
             {/* TOP HEADER */}
