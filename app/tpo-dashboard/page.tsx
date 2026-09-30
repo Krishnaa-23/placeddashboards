@@ -115,12 +115,38 @@ export default function TPODashboard() {
 
   // Core Data State
   const [students, setStudents] = useState<Student[]>(INITIAL_STUDENTS)
-  const [drives, setDrives] = useState<Drive[]>(INITIAL_DRIVES)
+  const [drives, setDrives] = useState<Drive[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('placed_tpo_drives')
+        if (saved) {
+          const parsed = JSON.parse(saved)
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed
+        }
+      } catch (e) {
+        console.log('Error reading saved drives', e)
+      }
+    }
+    return INITIAL_DRIVES
+  })
   const [selectedDept, setSelectedDept] = useState<string>('All')
   const [searchQuery, setSearchQuery] = useState<string>('')
 
   // Supabase Backend Integration (Cross-Dashboard Real Data Sync with Student Portal)
   React.useEffect(() => {
+    // Initial sync from localStorage if available
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('placed_tpo_drives')
+        if (saved) {
+          const parsed = JSON.parse(saved)
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setDrives(parsed)
+          }
+        }
+      } catch (e) {}
+    }
+
     const fetchSupabaseTPOData = async () => {
       try {
         // 1. Fetch Students from Student Dashboard main table (public.students)
@@ -171,7 +197,7 @@ export default function TPODashboard() {
 
         setStudents(combinedStudents)
 
-        // 3. Fetch Drives from isolated tpo_hiring_drives and student_opportunities
+        // 3. Fetch Drives from isolated tpo_hiring_drives
         const { data: dData } = await supabase.from('tpo_hiring_drives').select('*')
         if (dData && dData.length > 0) {
           const mappedDrives: Drive[] = dData.map(d => ({
@@ -191,8 +217,9 @@ export default function TPODashboard() {
             status: (d.status || 'Active') as any
           }))
           setDrives(mappedDrives)
-        } else {
-          setDrives([])
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('placed_tpo_drives', JSON.stringify(mappedDrives))
+          }
         }
       } catch (err) {
         console.log('Supabase backend cross-dashboard query:', err)
@@ -322,7 +349,15 @@ export default function TPODashboard() {
       status: 'Active'
     }
 
-    setDrives([created, ...drives])
+    const updatedDrives = [created, ...drives]
+    setDrives(updatedDrives)
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('placed_tpo_drives', JSON.stringify(updatedDrives))
+      } catch (err) {
+        console.log('Error caching drives locally:', err)
+      }
+    }
     setIsCreateDriveOpen(false)
     setNewDrive({
       companyName: '',
@@ -333,7 +368,7 @@ export default function TPODashboard() {
       eligibleDepts: ['Computer Science', 'Information Technology'],
       deadline: ''
     })
-    showToast(`Hiring Drive "${created.companyName}" created & posted to Student Dashboard!`)
+    showToast(`Hiring Drive "${created.companyName}" created & posted!`)
 
     // Real Supabase DB Insert for Cross-Dashboard Visibility (TPO + Student Dashboard)
     try {
