@@ -197,28 +197,56 @@ export default function TPODashboard() {
 
         setStudents(combinedStudents)
 
-        // 3. Fetch Drives from isolated tpo_hiring_drives
-        const { data: dData } = await supabase.from('tpo_hiring_drives').select('*')
-        if (dData && dData.length > 0) {
-          const mappedDrives: Drive[] = dData.map(d => ({
-            id: d.id,
-            companyName: d.company_name,
-            logoText: d.logo_text,
-            logoBg: 'bg-[#00A79D]',
-            roleTitle: d.role_title,
-            ctc: d.ctc,
-            minReadinessScore: Number(d.min_readiness_score),
-            minCgpa: Number(d.min_cgpa),
-            eligibleDepts: d.eligible_departments || [],
-            deadline: d.deadline,
-            totalInvited: Number(d.total_invited || 0),
-            shortlistedCount: Number(d.shortlisted_count || 0),
-            placedCount: Number(d.placed_count || 0),
-            status: (d.status || 'Active') as any
-          }))
-          setDrives(mappedDrives)
+        // 3. Fetch Drives from Supabase (tpo_hiring_drives with student_opportunities fallback)
+        let foundDrives: Drive[] = []
+        try {
+          const { data: dData } = await supabase.from('tpo_hiring_drives').select('*')
+          if (dData && dData.length > 0) {
+            foundDrives = dData.map(d => ({
+              id: d.id,
+              companyName: d.company_name || d.company,
+              logoText: d.logo_text || (d.company_name || d.company || 'DRV').substring(0, 3).toUpperCase(),
+              logoBg: 'bg-[#00A79D]',
+              roleTitle: d.role_title || d.role,
+              ctc: d.ctc || d.compensation || '₹12.0 LPA',
+              minReadinessScore: Number(d.min_readiness_score || 60),
+              minCgpa: Number(d.min_cgpa || 6.5),
+              eligibleDepts: d.eligible_departments || ['Computer Science', 'Information Technology'],
+              deadline: d.deadline || new Date().toISOString().split('T')[0],
+              totalInvited: Number(d.total_invited || 0),
+              shortlistedCount: Number(d.shortlisted_count || 0),
+              placedCount: Number(d.placed_count || 0),
+              status: (d.status || 'Active') as any
+            }))
+          } else {
+            const { data: oppData } = await supabase.from('student_opportunities').select('*')
+            if (oppData && oppData.length > 0) {
+              foundDrives = oppData.map((d: any, idx: number) => ({
+                id: d.id || `DRV-${idx + 1}`,
+                companyName: d.company || 'Company',
+                logoText: (d.company || 'DRV').substring(0, 3).toUpperCase(),
+                logoBg: 'bg-[#00A79D]',
+                roleTitle: d.role || 'Software Engineer',
+                ctc: d.compensation || '₹12.0 LPA',
+                minReadinessScore: 60,
+                minCgpa: 6.5,
+                eligibleDepts: ['Computer Science', 'Information Technology'],
+                deadline: '2026-10-30',
+                totalInvited: 50,
+                shortlistedCount: 0,
+                placedCount: 0,
+                status: (d.status || 'Active') as any
+              }))
+            }
+          }
+        } catch (fetchErr) {
+          console.log('Supabase drive fetch info:', fetchErr)
+        }
+
+        if (foundDrives.length > 0) {
+          setDrives(foundDrives)
           if (typeof window !== 'undefined') {
-            localStorage.setItem('placed_tpo_drives', JSON.stringify(mappedDrives))
+            localStorage.setItem('placed_tpo_drives', JSON.stringify(foundDrives))
           }
         }
       } catch (err) {
